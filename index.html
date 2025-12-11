@@ -368,6 +368,17 @@
       margin-top: 10px;
     }
 
+    .copy-code-btn {
+      background: linear-gradient(135deg, #10b981, #059669);
+      margin-top: 15px;
+      font-size: 1rem;
+      padding: 12px 24px;
+    }
+
+    .copy-code-btn:hover {
+      transform: scale(1.05);
+    }
+
     /* Floating particles */
     .particle {
       position: fixed;
@@ -428,6 +439,7 @@
           </div>
           <div class="timer-text">Code expires in <span id="timerText">30</span>s</div>
         </div>
+        <button class="copy-code-btn" onclick="copyCode()">📋 Copy Code</button>
       </div>
 
       <div class="settings">
@@ -703,6 +715,16 @@
       setTimeout(() => display.textContent = original, 1000);
     }
 
+    // Copy code
+    function copyCode() {
+      navigator.clipboard.writeText(currentCode);
+      const btn = document.querySelector('.copy-code-btn');
+      const original = btn.textContent;
+      btn.textContent = '✓ Copied!';
+      log('info', 'Code copied to clipboard');
+      setTimeout(() => btn.textContent = original, 1000);
+    }
+
     // Logging
     function log(type, message) {
       const logs = document.getElementById('logs');
@@ -782,7 +804,7 @@
 
     // Init
     function init() {
-      secret = generateSecret(16);
+      secret = 'YEJTYIEUQBZGCOFO';
       document.getElementById('secretDisplay').textContent = secret;
       drawQR();
       setupInputs();
